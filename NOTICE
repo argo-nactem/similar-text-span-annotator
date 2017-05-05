@@ -1,0 +1,9 @@
+Similar Text Span Annotator
+Copyright 2017 The National Centre for Text Mining, University of Manchester
+
+Licensed under GNU Lesser General Public Release, Version 3.0
+
+This project includes:
+  Apache UIMA Base: uimaj-core under The Apache Software License, Version 2.0
+  Similar Text Span Annotator under LGPL-3.0
+
