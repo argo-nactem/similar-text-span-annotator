@@ -24,12 +24,12 @@
 	<parent>
 		<groupId>uk.ac.nactem.argo</groupId>
 		<artifactId>argo-starter-components</artifactId>
-		<version>0.4</version>
+		<version>0.5</version>
 	</parent>
 
 	<groupId>uk.ac.nactem.argo.components</groupId>
 	<artifactId>similar-text-span-annotator</artifactId>
-	<version>1.0</version>
+	<version>1.0.1</version>
 	<name>Similar Text Span Annotator</name>
 	<inceptionYear>2017</inceptionYear>
 	<description>Marks up yet unannotated text spans which match the covered text of supplied annotations.</description>
@@ -37,10 +37,6 @@
 		<name>The National Centre for Text Mining (NaCTeM), University of Manchester</name>
 		<url>http://nactem.ac.uk</url>
 	</organization>
-
-	<properties>
-		<component.descriptor>desc/uk/ac/nactem/argo/SimilarTextSpanAnnotator.xml</component.descriptor>
-	</properties>
 
 	<licenses>
 		<license>
@@ -50,17 +46,33 @@
 			<comments>GNU Lesser General Public License v3.0</comments>
 		</license>
 	</licenses>
+	
+	<profiles>
+		<profile>
+			<id>pear</id>
+			
+			<properties>
+				<!-- This is the class of the component from which the PEAR file will be generated -->
+				<uima.component.class>uk.ac.nactem.argo.similartextspan.SimilarTextSpanAnnotator</uima.component.class>
+			</properties>
+
+			<dependencies>
+				<!-- !!! VERY IMPORTANT !!! -->
+				<!-- All type system dependencies must be redeclared here but with their 
+					<scope> value set to provided. This is to prevent the type systems being 
+					included inside the generated PEAR file; type systems should be independently 
+					installed into an Argo instance. If a type system gets included inside a 
+					PEAR file then workflow executions will normally fail, complaining of missing 
+					classes associated with UIMA types. -->
+				<!-- Eventually Argo should support installation of components and type 
+					systems from Maven, which will automatically deal with type system dependencies 
+					and avoid the need for this profile. -->
+			</dependencies>
+		</profile>
+	</profiles>
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.uima</groupId>
-				<artifactId>PearPackagingMavenPlugin</artifactId>
-			</plugin>
 			<plugin>
 				<groupId>com.mycila</groupId>
 				<artifactId>license-maven-plugin</artifactId>

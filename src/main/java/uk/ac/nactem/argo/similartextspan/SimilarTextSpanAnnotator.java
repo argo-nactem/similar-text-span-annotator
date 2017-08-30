@@ -29,32 +29,39 @@ import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
 import org.apache.uima.cas.FSIterator;
 import org.apache.uima.cas.Type;
 import org.apache.uima.cas.TypeSystem;
+import org.apache.uima.fit.descriptor.ConfigurationParameter;
+import org.apache.uima.fit.descriptor.ResourceMetaData;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.tcas.Annotation;
 import org.apache.uima.resource.ResourceInitializationException;
 
+/**
+ * Marks up yet unannotated text spans which match the covered text of supplied annotations
+ * 
+ * @author National Centre for Text Mining (NaCTeM)
+ */
+@ResourceMetaData(name="Similar Text Span Annotator")
 public class SimilarTextSpanAnnotator extends JCasAnnotator_ImplBase {
 	public static final String PARAM_NAME_SOURCE_TYPE = "SourceType";
-	public static final String PARAM_NAME_TARGET_TYPE = "TargetType";
-	public static final String PARAM_NAME_RESPECT_WORD_BOUNDARIES = "RespectWordBoundaries";
-	public static final String PARAM_NAME_CASE_SENSITIVE = "CaseSensitive";
-
+	@ConfigurationParameter(name = PARAM_NAME_SOURCE_TYPE,  mandatory = true)
 	private String sourceTypeString;
+	
+	public static final String PARAM_NAME_TARGET_TYPE = "TargetType";
+	@ConfigurationParameter(name = PARAM_NAME_TARGET_TYPE,  mandatory = true)
 	private String targetTypeString;
+	
+	public static final String PARAM_NAME_RESPECT_WORD_BOUNDARIES = "RespectWordBoundaries";
+	@ConfigurationParameter(name = PARAM_NAME_RESPECT_WORD_BOUNDARIES,  mandatory = true)
 	private Boolean respectWordBoundaries;
-	private Boolean caseSensitive;
+	
+	public static final String PARAM_NAME_CASE_SENSITIVE = "CaseSensitive";
+	@ConfigurationParameter(name = PARAM_NAME_CASE_SENSITIVE,  mandatory = true)
+	private Boolean caseSensitive;	
+	
 	private TypeSystem ts = null;
 
 	public void initialize(UimaContext aContext) throws ResourceInitializationException {
-		try {
-			sourceTypeString = (String) aContext.getConfigParameterValue(PARAM_NAME_SOURCE_TYPE);
-			targetTypeString = (String) aContext.getConfigParameterValue(PARAM_NAME_TARGET_TYPE);
-			respectWordBoundaries = (Boolean) aContext.getConfigParameterValue(PARAM_NAME_RESPECT_WORD_BOUNDARIES);
-			caseSensitive = (Boolean) aContext.getConfigParameterValue(PARAM_NAME_CASE_SENSITIVE);
-		} catch (Exception e) {
-			throw new ResourceInitializationException(e);
-		}
-
+		super.initialize(aContext);
 	}
 
 	public void process(JCas jcas) throws AnalysisEngineProcessException {
@@ -116,14 +123,11 @@ public class SimilarTextSpanAnnotator extends JCasAnnotator_ImplBase {
 					}
 				}
 			}
-
 		}
 
 		Collection<Annotation> valueSet = newAnnotations.values();
 		for (Annotation annotation : valueSet) {
 			jcas.addFsToIndexes(annotation);
 		}
-
 	}
-
 }
