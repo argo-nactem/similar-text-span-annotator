@@ -24,19 +24,35 @@
 	<parent>
 		<groupId>uk.ac.nactem.argo</groupId>
 		<artifactId>argo-starter-components</artifactId>
-		<version>0.5</version>
+		<version>0.5.1</version>
 	</parent>
 
 	<groupId>uk.ac.nactem.argo.components</groupId>
 	<artifactId>similar-text-span-annotator</artifactId>
 	<version>1.0.1</version>
+	
 	<name>Similar Text Span Annotator</name>
 	<inceptionYear>2017</inceptionYear>
+	<url>https://github.com/argo-nactem/similar-text-span-annotator</url>
 	<description>Marks up yet unannotated text spans which match the covered text of supplied annotations.</description>
 	<organization>
 		<name>The National Centre for Text Mining (NaCTeM), University of Manchester</name>
 		<url>http://nactem.ac.uk</url>
 	</organization>
+	
+	<developers>
+		<developer>
+			<organization>NaCTeM</organization>
+			<organizationUrl>http://nactem.ac.uk</organizationUrl>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:git:git://github.com/argo-nactem/similar-text-span-annotator</connection>
+		<developerConnection>scm:git:git@github.com:argo-nactem/similar-text-span-annotator.git</developerConnection>
+		<url>https://github.com/argo-nactem/similar-text-span-annotator</url>
+		<tag>HEAD</tag>
+	</scm>
 
 	<licenses>
 		<license>
